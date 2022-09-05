@@ -27,7 +27,7 @@ public class PlayingField {
         this.gameStatus = gameStatus;
     }
 
-    public void newField() {
+    public void newField() { // заполнение поля перед игрой
         field.put(1, '1');
         field.put(2, '2');
         field.put(3, '3');

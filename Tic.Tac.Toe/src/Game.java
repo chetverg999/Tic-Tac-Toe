@@ -14,16 +14,16 @@ public class Game {
         positionCross = 10;
     }
 
-    public int crossDraw() {
+    public int crossDraw() { // рисование крестика
         while (true) {
             System.out.println("Поставьте крестик путем выбора номера клетки");
-            conditions.playingField.drawField();
+            conditions.playingField.drawField(); // отображение игрового поля
             if (scanner.hasNextInt()) {
                 positionCross = scanner.nextInt();
                 if (positionCross > 0 && positionCross < 10
                         && conditions.playingField.getField().get(positionCross) != conditions.playingField.zero
                         && conditions.playingField.getField().get(positionCross) != conditions.playingField.cross) {
-                    return positionCross;
+                    return positionCross; // при прохождении проверки на валидное значение возвращает координату крестика
                 } else System.out.println("Неверное значение");
             } else {
                 System.out.println("Неверное значение");
