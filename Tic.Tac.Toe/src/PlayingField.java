@@ -3,40 +3,28 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PlayingField {
+    private static PlayingField instance;
+    private final Map<Integer, Character> field;
 
-    final char cross = '+';
-    final char zero = 'o';
-    boolean gameStatus = true;
-
-    Map<Integer, Character> field;
-
-    public PlayingField() {
+    private PlayingField() {
         field = new HashMap<>();
+    }
+
+    public static PlayingField getInstance() {
+        if (instance == null) {
+            instance = new PlayingField();
+        }
+        return instance;
     }
 
     public Map<Integer, Character> getField() {
         return field;
     }
 
-
-    public boolean isGameStatus() {
-        return gameStatus;
-    }
-
-    public void setGameStatus(boolean gameStatus) {
-        this.gameStatus = gameStatus;
-    }
-
     public void newField() { // заполнение поля перед игрой
-        field.put(1, '1');
-        field.put(2, '2');
-        field.put(3, '3');
-        field.put(4, '4');
-        field.put(5, '5');
-        field.put(6, '6');
-        field.put(7, '7');
-        field.put(8, '8');
-        field.put(9, '9');
+        for (int i = 1; i < 10; i++) {
+            field.put(i, (char) (i + '0'));
+        }
     }
 
     public void drawField() {

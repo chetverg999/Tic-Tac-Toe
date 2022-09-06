@@ -1,28 +1,25 @@
 
 public class Conditions {
-    PlayingField playingField;
 
-    public Conditions() {
-        playingField = new PlayingField();
+    public char getValueOfField(int i) {  // получение значения поля по его координате
+        return PlayingField.getInstance().getField().get(i);
     }
 
-    public char gvf(int i) {  // получение значения поля по его координате
-        return playingField.getField().get(i);
-    }
+    public boolean checkCondition() { // проверка состояния выигрыша
 
-    public void checkCondition() { // проверка состояния выигрыша
-        if (gvf(1) == gvf(5) && gvf(1) == gvf(9) ||
-                gvf(3) == gvf(5) && gvf(3) == gvf(7) ||
-                gvf(1) == gvf(2) && gvf(1) == gvf(3) ||
-                gvf(7) == gvf(8) && gvf(7) == gvf(9) ||
-                gvf(1) == gvf(4) && gvf(1) == gvf(7) ||
-                gvf(3) == gvf(6) && gvf(3) == gvf(9) ||
-                gvf(4) == gvf(5) && gvf(4) == gvf(6) ||
-                gvf(2) == gvf(5) && gvf(2) == gvf(8)) {
-            System.out.println("Вы выиграли!");
-            playingField.setGameStatus(false); // остановка потоков
-            System.exit(0); // выход из игры
+        for (int i = 1; i < 4; i++) {
+            if ((getValueOfField(i) == getValueOfField(i + 1) && getValueOfField(i) == getValueOfField(i + 2)) ||
+                    (getValueOfField(i) == getValueOfField(i + 3) && getValueOfField(i) == getValueOfField(i + 6))) {
+                return true;
+            }
         }
-    }
 
+        for (int i = 1; i < 4; i++) {
+            if ((getValueOfField(i) == getValueOfField(i + 4) && getValueOfField(i) == getValueOfField(i + 8)) ||
+                    (getValueOfField(i) == getValueOfField(i + 2) && getValueOfField(i) == getValueOfField(i + 4))) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
