@@ -1,15 +1,22 @@
 
-import java.util.Scanner;
-
 public class Game {
+    PlayingField playingField;
+    Constants constants;
+    DrawSome drawSome;
+    Conditions conditions;
     ZeroPlayer zeroPlayer;
-    CrossPlayer crossPlayer;
     ComputerPlayer computerPlayer;
+    CrossPlayer crossPlayer;
+
 
     public Game() {
-        this.zeroPlayer = new ZeroPlayer();
-        this.crossPlayer = new CrossPlayer();
-        this.computerPlayer = new ComputerPlayer();
+        this.playingField = new PlayingField();
+        this.constants = new Constants();
+        this.drawSome = new DrawSome(playingField, constants);
+        this.conditions = new Conditions(playingField);
+        this.zeroPlayer = new ZeroPlayer(conditions, playingField, constants, drawSome);
+        this.computerPlayer = new ComputerPlayer(conditions, playingField, constants, drawSome);
+        this.crossPlayer = new CrossPlayer(conditions, playingField, constants, drawSome);
     }
 
     public void startGamers() {
@@ -22,7 +29,7 @@ public class Game {
     }
 
     public void startGame() {
-        PlayingField.getInstance().newField();
+        playingField.newField();
         startGamers();
     }
 }

@@ -1,8 +1,14 @@
 
 public class Conditions {
 
+    private final PlayingField playingField;
+
+    public Conditions(PlayingField playingField) {
+        this.playingField = playingField;
+    }
+
     public char getValueOfField(int i) {  // получение значения поля по его координате
-        return PlayingField.getInstance().getField().get(i);
+        return playingField.getField().get(i);
     }
 
     public boolean checkCondition() { // проверка состояния выигрыша

@@ -1,4 +1,12 @@
 public class Constants {
-    final char cross = '+';
-    final char zero = 'o';
+    private final char cross = '+';
+    private final char zero = 'o';
+
+    public char getCross() {
+        return cross;
+    }
+
+    public char getZero() {
+        return zero;
+    }
 }

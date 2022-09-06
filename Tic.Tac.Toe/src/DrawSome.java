@@ -2,30 +2,41 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class DrawSome {
-    Scanner scanner;
-    Random random;
-    Constants constants;
-    int positionZero;
-    int positionCross;
+    private final PlayingField playingField;
+    private final Scanner scanner;
+    private final Random random;
+    private final Constants constants;
+    private int positionZero;
+    private int positionCross;
 
-    public DrawSome() {
-        scanner = new Scanner(System.in);
-        positionZero = 10;
-        positionCross = 10;
-        random = new Random();
-        constants = new Constants();
+    public int getPositionZero() {
+        return positionZero;
     }
 
-    public int crossDraw() { // рисование крестика
-        while (true) {
+    public int getPositionCross() {
+        return positionCross;
+    }
+
+    public DrawSome(PlayingField playingField, Constants constants) {
+        this.playingField = playingField;
+        this.scanner = new Scanner(System.in);
+        this.random = new Random();
+        this.constants = constants;
+        this.positionZero = 10;
+        this.positionCross = 10;
+    }
+
+    public void crossDraw() { // рисование крестика
+        boolean status = true;
+        while (status) {
             System.out.println("Поставьте крестик путем выбора номера клетки");
-            PlayingField.getInstance().drawField(); // отображение игрового поля
+            playingField.drawField(); // отображение игрового поля
             if (scanner.hasNextInt()) {
                 positionCross = scanner.nextInt();
                 if (positionCross > 0 && positionCross < 10
-                        && PlayingField.getInstance().getField().get(positionCross) != constants.zero
-                        && PlayingField.getInstance().getField().get(positionCross) != constants.cross) {
-                    return positionCross; // при прохождении проверки на валидное значение возвращает координату крестика
+                        && playingField.getField().get(positionCross) != constants.getZero()
+                        && playingField.getField().get(positionCross) != constants.getCross()) {
+                    status = false; // при прохождении проверки на валидное значение возвращает координату крестика
                 } else System.out.println("Неверное значение");
             } else {
                 System.out.println("Неверное значение");
@@ -34,16 +45,17 @@ public class DrawSome {
         }
     }
 
-    public int zeroDraw() {
-        while (true) {
+    public void zeroDraw() {
+        boolean status = true;
+        while (status) {
             System.out.println("Поставьте нолик путем выбора номера клетки");
-            PlayingField.getInstance().drawField();
+            playingField.drawField();
             if (scanner.hasNextInt()) {
                 positionZero = scanner.nextInt();
                 if (positionZero > 0 && positionZero < 10
-                        && PlayingField.getInstance().getField().get(positionZero) != constants.cross
-                        && PlayingField.getInstance().getField().get(positionZero) != constants.zero) {
-                    return positionZero;
+                        && playingField.getField().get(positionZero) != constants.getCross()
+                        && playingField.getField().get(positionZero) != constants.getZero()) {
+                    status = false;
                 } else System.out.println("Неверное значение");
             } else {
                 System.out.println("Неверное значение");
@@ -52,16 +64,15 @@ public class DrawSome {
         }
     }
 
-    public int computerMove() {
+    public void computerMove() {
         boolean status = true;
         while (status) {
 
             positionZero = random.nextInt(9) + 1;
-            if (PlayingField.getInstance().getField().get(positionZero) != constants.cross &&
-                    PlayingField.getInstance().getField().get(positionZero) != constants.zero) {
+            if (playingField.getField().get(positionZero) != constants.getCross() &&
+                    playingField.getField().get(positionZero) != constants.getZero()) {
                 status = false;
             }
         }
-        return positionZero;
     }
 }

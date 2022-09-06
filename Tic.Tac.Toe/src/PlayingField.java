@@ -3,19 +3,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PlayingField {
-    private static PlayingField instance;
     private final Map<Integer, Character> field;
 
-    private PlayingField() {
+    public PlayingField() {
         field = new HashMap<>();
     }
 
-    public static PlayingField getInstance() {
-        if (instance == null) {
-            instance = new PlayingField();
-        }
-        return instance;
-    }
 
     public Map<Integer, Character> getField() {
         return field;
